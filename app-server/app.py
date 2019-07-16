@@ -7,8 +7,9 @@ import control.weather
 app = Flask(__name__)
 @app.route('/',methods=['GET', 'POST'])
 def index():
-    return '没有数据'
-
+    return '请检查接口是否正确'
+'''
+获取豆瓣电影'''
 @app.route('/video/<type>', methods=['GET', 'POST'])
 def video(type):
     if type == 'frist':
@@ -21,8 +22,10 @@ def video(type):
         return control.video.detailed_actor_func(request.data)
     if type == 'search':
         return control.video.search_func(request.args.get('q'))
-
-
+    else:
+        return "请检查接口是否正确!"
+'''
+获取小说'''
 @app.route('/book/<type>', methods=['GET', 'POST'])
 def book(type):
     if type == 'free':
@@ -47,14 +50,15 @@ def book(type):
     if type == 'search':
         return control.book.search_func(request.args.get('value'))
     else:
-        return 'abc'
+        return '请检查接口是否正确！'
 
 
-
+'''
+获取天气预报
+'''
 @app.route('/weather', methods=['GET', 'POST'])
 def weather():
-    return control.weather.getrealweather(request.data)
-
+        return control.weather.gethistoryweather(request.data)
 if __name__ == '__main__':
     app.debug = True
     app.run(threaded=True)
